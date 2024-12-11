@@ -2,20 +2,29 @@ extends CharacterBody2D
 
 const SPEED = 100
 @export var direction = ""
+var dead : bool = false
 
 func _ready():
 	$AnimationPlayer.play("Base/walk_" + direction)
 	
-func _physics_process(delta: float) -> void:
-	if direction == "left":
-		velocity.x = -SPEED
-	elif direction == "right":
-		velocity.x = SPEED
-	elif direction == "up":
-		velocity.y = -SPEED
-	elif direction == "down":
-		velocity.y = SPEED
+func prepare_die():
 	move_and_slide()
+	dead = true
+	
+func die():
+	get_parent().remove_child(self)
+	
+func _physics_process(delta: float) -> void:
+	if not dead:
+		if direction == "left":
+			velocity.x = -SPEED
+		elif direction == "right":
+			velocity.x = SPEED
+		elif direction == "up":
+			velocity.y = -SPEED
+		elif direction == "down":
+			velocity.y = SPEED
+		move_and_slide()
 	
 	## Add the gravity.
 	#if not is_on_floor():

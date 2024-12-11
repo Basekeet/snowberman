@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dg8aoy2uvjxq5"]
+[gd_scene load_steps=16 format=3 uid="uid://dg8aoy2uvjxq5"]
 
 [ext_resource type="Texture2D" uid="uid://bescrjnlm6qwa" path="res://anims/GirlSample_Walk_Right.png" id="1_jh48w"]
 [ext_resource type="Script" path="res://scenes/enemy.gd" id="1_rjufm"]
@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cbre8bnodtuty" path="res://anims/GirlSample_Walk_Up.png" id="2_vg8oe"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3oskw"]
-size = Vector2(56, 46)
+size = Vector2(43, 46)
 
 [sub_resource type="Animation" id="Animation_y82pe"]
 length = 0.001
@@ -35,10 +35,102 @@ tracks/1/keys = {
 "update": 1,
 "values": [0]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_628lu"]
+resource_name = "Die"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.3, 0.466667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [false, true, false, true]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"prepare_die"
+}, {
+"args": [],
+"method": &"die"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_2e2i3"]
+resource_name = "explode"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0, 0, 0, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"prepare_die"
+}, {
+"args": [],
+"method": &"die"
+}]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_v5pgl"]
 _data = {
-"RESET": SubResource("Animation_y82pe")
+"RESET": SubResource("Animation_y82pe"),
+"die": SubResource("Animation_628lu"),
+"explode": SubResource("Animation_2e2i3")
 }
 
 [sub_resource type="Animation" id="Animation_lnwnt"]
@@ -162,10 +254,11 @@ _data = {
 script = ExtResource("1_rjufm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, 13)
+scale = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_3oskw")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1, -20)
 texture = ExtResource("1_jh48w")
 hframes = 4
 vframes = 3

@@ -59,8 +59,11 @@ func attack():
 		collision = $collision_right
 	collision.find_child("AnimationPlayer").play("explode")
 	for el in collision.get_overlapping_bodies():
-		if el.name.begins_with("Enemy"):
-			el.get_parent().remove_child(el)
+		if el.name.begins_with("Enemy") and not el.dead:
+			var a = el.find_children("AnimationPlayer")[0]
+			print(a)
+			a.play("die")
+			#el.get_parent().remove_child(el)
 			
 
 func handle_health():
@@ -75,8 +78,9 @@ func handle_hit():
 
 func handle_hit_in_area(area):
 	for el in area.get_overlapping_bodies():
-		if el.name.begins_with("Enemy"):
-			el.get_parent().remove_child(el)
+		if el.name.begins_with("Enemy") and not el.dead:
+			
+			el.find_children("AnimationPlayer")[0].play("explode")
 			health -= 1
 			health = max(0, health)
 			print(health)

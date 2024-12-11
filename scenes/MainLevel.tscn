@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bl6yliy1tfbgv"]
+[gd_scene load_steps=8 format=3 uid="uid://bl6yliy1tfbgv"]
 
 [ext_resource type="PackedScene" uid="uid://bk1kvsupe4ydw" path="res://scenes/player.tscn" id="1_12j15"]
 [ext_resource type="Script" path="res://scenes/main_level.gd" id="1_hvxfb"]
 [ext_resource type="Script" path="res://scenes/health.gd" id="4_630r3"]
+[ext_resource type="PackedScene" uid="uid://b4srp2q1ywt7b" path="res://scenes/pausemenu.tscn" id="5_acrfn"]
 [ext_resource type="Texture2D" uid="uid://dvcpvyai6hw0" path="res://anims/spritesheet.png" id="10_5axyl"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6gy66"]
@@ -528,3 +529,25 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 text = "5"
+
+[node name="Pausemenu" parent="." instance=ExtResource("5_acrfn")]
+visible = false
+z_index = 4096
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -574.0
+offset_top = -321.0
+offset_right = 576.0
+offset_bottom = 320.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+modulate = Color(0, 1, 1, 1)
+offset_left = -556.0
+offset_top = -305.0
+offset_right = -362.0
+offset_bottom = -289.0
+value = 50.0
+show_percentage = false

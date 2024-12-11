@@ -619,3 +619,7 @@ position = Vector2(1, 47)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collision_hit_down"]
 position = Vector2(-2, -4)
 shape = SubResource("RectangleShape2D_1w58p")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout_cd"]

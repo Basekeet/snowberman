@@ -1,10 +1,8 @@
 extends CharacterBody2D
 
-const SPEED_LEFT = 108
-const SPEED_UP = 54
-const SPEED_RIGHT = 100
-const SPEED_DOWN = 49
+
 @export var direction = ""
+@export var SPEED = 0
 
 func _ready():
 	$AnimationPlayer.play("Base/walk_" + direction)
@@ -12,13 +10,13 @@ func _ready():
 	
 func _physics_process(delta: float) -> void:
 	if direction == "left":
-		velocity.x = -SPEED_LEFT
+		velocity.x = -SPEED
 	elif direction == "right":
-		velocity.x = SPEED_RIGHT
+		velocity.x = SPEED
 	elif direction == "up":
-		velocity.y = -SPEED_UP
+		velocity.y = -SPEED
 	elif direction == "down":
-		velocity.y = SPEED_DOWN
+		velocity.y = SPEED
 	move_and_slide()
 	
 	## Add the gravity.

@@ -3,6 +3,11 @@ extends AudioStreamPlayer
 @export var bpm := 100
 @export var measures := 4
 
+@export var spawnBeforeBeatSeconds := 3
+@export var TrekOffset := 1
+
+
+var smallTimer = 0.000001
 # Tracking the beat and song position
 var song_position = 0.0
 var song_position_in_beats = 1
@@ -43,7 +48,12 @@ func _report_beat():
 
 func play_with_beat_offset(num):
 	beats_before_start = num
-	$StartTimer.wait_time = sec_per_beat
+	if beats_before_start != 0:
+		$StartTimer.wait_time = beats_before_start
+	else:
+		beats_before_start = smallTimer
+		$StartTimer.wait_time = smallTimer
+	print("started")
 	$StartTimer.start()
 
 
@@ -62,14 +72,23 @@ func play_from_beat(beat, offset):
 
 
 func _on_start_timer_timeout() -> void:
-	song_position_in_beats += 1
-	if song_position_in_beats < beats_before_start - 1:
+	#song_position_in_beats += 1
+	#if song_position_in_beats < beats_before_start - 1:
+		#$StartTimer.start()
+	#elif song_position_in_beats == beats_before_start - 1:
+		#$StartTimer.wait_time = $StartTimer.wait_time - (AudioServer.get_time_to_next_mix() +
+														#AudioServer.get_output_latency())
+		#$StartTimer.start()
+	#else:
+	print("Timer ", $StartTimer.wait_time, " ", beats_before_start)
+	if $StartTimer.wait_time == beats_before_start:
+		$StartTimer.wait_time = spawnBeforeBeatSeconds
 		$StartTimer.start()
-	elif song_position_in_beats == beats_before_start - 1:
-		$StartTimer.wait_time = $StartTimer.wait_time - (AudioServer.get_time_to_next_mix() +
-														AudioServer.get_output_latency())
-		$StartTimer.start()
+		var pos = (spawnBeforeBeatSeconds + 3) % 4 
+		if pos == 0:
+			pos = 4
+		emit_signal("measure_beat", pos)
 	else:
 		play()
 		$StartTimer.stop()
-	_report_beat()
+		_report_beat()

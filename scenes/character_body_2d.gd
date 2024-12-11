@@ -8,7 +8,8 @@ const JUMP_VELOCITY = -400.0
 var anim = "NONE"
 var facing = "left"
 var state = "idle"
-
+var striked = false
+var missed = false
 var health = 20
 
 func _physics_process(delta: float) -> void:
@@ -57,10 +58,17 @@ func attack():
 		collision = $collision_left
 	if facing == "right":
 		collision = $collision_right
-	collision.find_child("AnimationPlayer").play("explode")
-	for el in collision.get_overlapping_bodies():
-		if el.name.begins_with("Enemy"):
-			el.get_parent().remove_child(el)
+	if not missed:
+		print(collision.get_overlapping_bodies())
+		collision.find_child("AnimationPlayer").play("explode")
+		for el in collision.get_overlapping_bodies():
+			if el.name.begins_with("Enemy") and not missed:
+				el.get_parent().remove_child(el)
+				striked = true
+			if not striked:
+				$Timer.start()
+				missed = true
+	striked = false
 			
 
 func handle_health():
@@ -78,10 +86,15 @@ func handle_hit_in_area(area):
 		if el.name.begins_with("Enemy"):
 			el.get_parent().remove_child(el)
 			#print(el.get_children()[3].wait_time - el.get_children()[3].time_left, el.direction)
+			striked = true
 			health -= 1
 			health = max(0, health)
-			print(health)
+			#print(health)
 			
 		
 func get_health():
 	return health
+
+
+func _on_timer_timeout_cd() -> void:
+	missed = false

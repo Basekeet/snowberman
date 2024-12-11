@@ -1,8 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://bl6yliy1tfbgv"]
+[gd_scene load_steps=9 format=3 uid="uid://bl6yliy1tfbgv"]
 
 [ext_resource type="PackedScene" uid="uid://bk1kvsupe4ydw" path="res://scenes/player.tscn" id="1_12j15"]
 [ext_resource type="Script" path="res://scenes/main_level.gd" id="1_hvxfb"]
 [ext_resource type="Script" path="res://scenes/health.gd" id="4_630r3"]
+[ext_resource type="AudioStream" uid="uid://dt8k27laj5emp" path="res://sounds/song.ogg" id="5_ebkpq"]
+[ext_resource type="Script" path="res://scenes/audio_stream_player.gd" id="5_m47dk"]
 [ext_resource type="Texture2D" uid="uid://dvcpvyai6hw0" path="res://anims/spritesheet.png" id="10_5axyl"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6gy66"]
@@ -528,3 +530,14 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 text = "5"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_ebkpq")
+script = ExtResource("5_m47dk")
+
+[node name="StartTimer" type="Timer" parent="AudioStreamPlayer"]
+one_shot = true
+
+[connection signal="beat" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_beat"]
+[connection signal="measure_beat" from="AudioStreamPlayer" to="." method="_on_AudioStreamPlayer_measure"]
+[connection signal="timeout" from="AudioStreamPlayer/StartTimer" to="AudioStreamPlayer" method="_on_start_timer_timeout"]

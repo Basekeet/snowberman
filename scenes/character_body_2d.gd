@@ -9,7 +9,7 @@ var anim = "NONE"
 var facing = "left"
 var state = "idle"
 
-var health = 3
+var health = 20
 
 func _physics_process(delta: float) -> void:
 	handle_health()
@@ -77,6 +77,7 @@ func handle_hit_in_area(area):
 	for el in area.get_overlapping_bodies():
 		if el.name.begins_with("Enemy"):
 			el.get_parent().remove_child(el)
+			#print(el.get_children()[3].wait_time - el.get_children()[3].time_left, el.direction)
 			health -= 1
 			health = max(0, health)
 			print(health)

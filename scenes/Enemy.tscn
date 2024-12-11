@@ -175,3 +175,6 @@ libraries = {
 "": SubResource("AnimationLibrary_v5pgl"),
 "Base": SubResource("AnimationLibrary_lbknr")
 }
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0

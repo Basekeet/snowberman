@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqjhislw36ywu"]
+
+[ext_resource type="Script" path="res://scenes/misc/circle.gd" id="1_dt4xx"]
+[ext_resource type="Texture2D" uid="uid://c817x61tf5ubh" path="res://textures/pngtree-black-ring-png-image_2319165.png" id="2_b7lw3"]
+
+[node name="Circle" type="Node2D"]
+z_index = -4000
+script = ExtResource("1_dt4xx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_b7lw3")

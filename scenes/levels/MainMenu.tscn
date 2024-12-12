@@ -29,18 +29,18 @@ offset_bottom = 85.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label2" type="Label" parent="VBoxContainer2"]
+[node name="Title" type="Label" parent="VBoxContainer2"]
 layout_mode = 2
 text = "Snowberman"
 label_settings = SubResource("LabelSettings_6r8hq")
 
-[node name="Label" type="Label" parent="VBoxContainer2"]
+[node name="Tutorial" type="Label" parent="VBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 text = "Нажимай кнопки wasd либо стрелочки чтобы совершить удар
 Совершать удары можно только в бит
-Если совершить удар не в бит, то какое-то время бить нельзя
+Если совершить удар не в бит, то какое-то время бить будет нельзя
 Старайся внимательно слушать музыку и не дай врагам добраться до тебя
 "
 

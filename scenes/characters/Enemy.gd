@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const SPEED = 100
+var speed = 0
 var is_dead = false
 var direction = "left"
 
@@ -9,6 +9,7 @@ func _ready():
 	
 func prepare_die():
 	is_dead = true
+	$CollisionBox.disabled = true
 	
 func die():
 	get_parent().remove_child(self)
@@ -16,11 +17,11 @@ func die():
 func _physics_process(delta: float) -> void:
 	if not is_dead:
 		if direction == "left":
-			velocity.x = -SPEED
+			velocity.x = -speed
 		elif direction == "right":
-			velocity.x = SPEED
+			velocity.x = speed
 		elif direction == "up":
-			velocity.y = -SPEED
+			velocity.y = -speed
 		elif direction == "down":
-			velocity.y = SPEED
+			velocity.y = speed
 		move_and_slide()

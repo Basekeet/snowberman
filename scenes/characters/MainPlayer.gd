@@ -6,6 +6,9 @@ var anim = "NONE"
 var facing = "left"
 var state = "idle"
 
+
+var striked = false
+var missed = false
 var health = 3
 
 func _physics_process(delta: float) -> void:
@@ -64,6 +67,8 @@ func goto_idle():
 
 func attack():
 	var collision : Area2D
+	if missed:
+		return
 	if facing == "up":
 		collision = $AttackAreaUp
 	if facing == "down":
@@ -74,9 +79,17 @@ func attack():
 		collision = $AttackAreaRight
 	collision.find_child("Anims").play("explode")
 	for overlapped_body in collision.get_overlapping_bodies():
-		if overlapped_body.name.begins_with("Enemy") and not overlapped_body.is_dead:
-			var enemy_animation_manager = overlapped_body.find_children("Anims")[0]
-			enemy_animation_manager.play("die")
+		if overlapped_body.name.begins_with("Enemy") \
+			and not overlapped_body.is_dead \
+			and not missed:
+				var enemy_animation_manager = overlapped_body.find_children("Anims")[0]
+				enemy_animation_manager.play("die")
+				striked = true
+	if not striked:
+		$Timer.start()
+		missed = true
+	
+	striked = false
 
 func handle_hit():
 	handle_hit_in_area($HitAreaDown)
@@ -88,5 +101,10 @@ func handle_hit_in_area(area):
 	for el in area.get_overlapping_bodies():
 		if el.name.begins_with("Enemy") and not el.is_dead:
 			el.find_children("Anims")[0].play("explode")
+			striked = true
 			health -= 1
 			health = max(0, health)
+
+
+func _on_timer_timeout() -> void:
+	missed = false

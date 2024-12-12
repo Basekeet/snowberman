@@ -1,10 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://bl6yliy1tfbgv"]
+[gd_scene load_steps=11 format=3 uid="uid://bl6yliy1tfbgv"]
 
 [ext_resource type="Script" path="res://scenes/levels/MainLevel.gd" id="1_a0xb6"]
 [ext_resource type="PackedScene" uid="uid://bk1kvsupe4ydw" path="res://scenes/characters/MainPlayer.tscn" id="2_3qtl0"]
 [ext_resource type="Texture2D" uid="uid://dvcpvyai6hw0" path="res://textures/spritesheet.png" id="3_ehn4q"]
 [ext_resource type="Script" path="res://scenes/misc/Health.gd" id="4_wys1y"]
 [ext_resource type="PackedScene" uid="uid://b4srp2q1ywt7b" path="res://scenes/levels/PauseMenu.tscn" id="5_ggje8"]
+[ext_resource type="AudioStream" uid="uid://dt8k27laj5emp" path="res://songs/song.ogg" id="6_jxj3c"]
+[ext_resource type="Script" path="res://scenes/levels/BeatController.gd" id="6_ngubx"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6gy66"]
 texture = ExtResource("3_ehn4q")
@@ -556,3 +558,17 @@ offset_right = 139.0
 offset_bottom = -45.0
 value = 50.0
 show_percentage = false
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_jxj3c")
+script = ExtResource("6_ngubx")
+bpm = 115
+spawnBeforeBeatSeconds = 1
+TrekOffset = 2
+
+[node name="Timer" type="Timer" parent="AudioStreamPlayer"]
+one_shot = true
+
+[connection signal="beat" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_beat"]
+[connection signal="measure_beat" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_measure_beat"]
+[connection signal="timeout" from="AudioStreamPlayer/Timer" to="AudioStreamPlayer" method="_on_timer_timeout"]

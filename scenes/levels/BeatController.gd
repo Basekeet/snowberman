@@ -34,6 +34,11 @@ func _physics_process(_delta):
 		song_position -= AudioServer.get_output_latency()
 		song_position_in_beats = int(floor(song_position / sec_per_beat)) + beats_before_start
 		_report_beat()
+		
+
+func get_beat_proxymity():
+	var proxymity = song_position / sec_per_beat - floor(song_position / sec_per_beat)
+	return min(proxymity, 1 - proxymity)
 
 
 func _report_beat():

@@ -52,7 +52,7 @@ func _process(delta: float) -> void:
 			#spawn_enemy(dir)
 
 func handle_progress():
-	progress.value = 100 * (elapsed_time / 60.0)
+	progress.value = 100 * (song_position_in_beats / 264.0)
 
 func handle_game_finish():
 	if player.health <= 0:
@@ -156,7 +156,6 @@ func _on_audio_stream_player_beat(position: Variant) -> void:
 		spawn_3_beat = 1
 		spawn_4_beat = 1
 	if song_position_in_beats > 151:
-		#spawnBeforeBeatSeconds = 2
 		spawn_1_beat = 0
 		spawn_2_beat = 0
 		spawn_3_beat = 0

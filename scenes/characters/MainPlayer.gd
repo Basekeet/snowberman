@@ -6,10 +6,9 @@ var anim = "NONE"
 var facing = "left"
 var state = "idle"
 
-
 var striked = false
 var missed = false
-var health = 1000
+var health = 10
 
 func _physics_process(delta: float) -> void:
 	if $"../".game_paused:
@@ -103,10 +102,16 @@ func attack():
 		var missDetect = missDetectLoad.instantiate()
 		add_child(missDetect)
 		missDetect.find_child("Anims").play("Miss")
+		Variables.missScore += 1
 	else:
 		var missDetect = missDetectLoad.instantiate()
 		add_child(missDetect)
-		missDetect.find_child("Anims").play("Good")
+		if $"../AudioStreamPlayer".get_beat_proxymity() < 0.15:
+			missDetect.find_child("Anims").play("Excellent")
+			Variables.excellentScore += 1
+		else:
+			missDetect.find_child("Anims").play("Good")
+			Variables.goodScore += 1
 	
 	striked = false
 

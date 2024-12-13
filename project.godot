@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 general/default_playback_type.web=0
 
+[autoload]
+
+Variables="*res://scenes/misc/variables.gd"
+
 [input]
 
 attack={

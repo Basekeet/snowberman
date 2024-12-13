@@ -563,8 +563,8 @@ show_percentage = false
 stream = ExtResource("6_jxj3c")
 script = ExtResource("6_ngubx")
 bpm = 115
-spawnBeforeBeatSeconds = 1
-TrekOffset = 2
+spawnBeforeBeatSeconds = 3
+TrekOffset = 0
 
 [node name="Timer" type="Timer" parent="AudioStreamPlayer"]
 one_shot = true

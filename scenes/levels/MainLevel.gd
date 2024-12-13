@@ -10,8 +10,8 @@ var elapsed_time = 0.0
 
 var game_paused = false
 
-var spawnBeforeBeatSeconds = 1
-var TrekOffset = 2
+var spawnBeforeBeatSeconds = 3
+var TrekOffset = 0
 
 var bpm = 115
 var spawn_1_beat = 0
@@ -122,7 +122,7 @@ func _on_audio_stream_player_measure_beat(position: Variant) -> void:
 
 func _spawn_notes(to_spawn):
 	if to_spawn > 0:
-		var direction = 0
+		var direction = randi() % 4
 		spawn_enemy(direction)
 	#if to_spawn > 1:
 		#while rand == r:

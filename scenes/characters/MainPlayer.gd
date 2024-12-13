@@ -9,7 +9,7 @@ var state = "idle"
 
 var striked = false
 var missed = false
-var health = 3
+var health = 10
 
 func _physics_process(delta: float) -> void:
 	handle_hit()

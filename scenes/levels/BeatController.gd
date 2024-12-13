@@ -1,7 +1,7 @@
 extends AudioStreamPlayer2D
 
 
-@export var bpm := 100
+@export var bpm := 120
 @export var measures := 4
 
 @export var spawnBeforeBeatSeconds := 2
@@ -88,7 +88,7 @@ func _on_timer_timeout() -> void:
 		var pos = (spawnBeforeBeatSeconds + 3) % 4 
 		if pos == 0:
 			pos = 4
-		emit_signal("measure_beat", pos)
+		#emit_signal("measure_beat", pos)
 	else:
 		play()
 		$Timer.stop()

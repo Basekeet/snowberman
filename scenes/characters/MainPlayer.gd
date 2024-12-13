@@ -9,7 +9,7 @@ var state = "idle"
 
 var striked = false
 var missed = false
-var health = 10
+var health = 1000
 
 func _physics_process(delta: float) -> void:
 	if $"../".game_paused:
@@ -83,13 +83,20 @@ func attack():
 	if facing == "right":
 		collision = $AttackAreaRight
 	collision.find_child("Anims").play("explode")
+	var minEnemy : CharacterBody2D
+	var minDist = 10000000
 	for overlapped_body in collision.get_overlapping_bodies():
 		if overlapped_body.name.begins_with("Enemy") \
 			and not overlapped_body.is_dead \
 			and not missed:
-				var enemy_animation_manager = overlapped_body.find_children("Anims")[0]
-				enemy_animation_manager.play("die")
-				striked = true
+				var dist = abs(overlapped_body.position.x + overlapped_body.position.y)
+				if minDist > dist:
+					minDist = dist
+					minEnemy = overlapped_body
+	if minEnemy:
+		var enemy_animation_manager = minEnemy.find_children("Anims")[0]
+		enemy_animation_manager.play("die")
+		striked = true
 	if not striked:
 		$Timer.start()
 		missed = true

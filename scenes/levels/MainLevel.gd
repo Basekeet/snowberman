@@ -9,15 +9,19 @@ var enemy_count = 0
 var elapsed_time = 0.0
 
 var game_paused = false
+var finish = false
+
 
 var spawnBeforeBeatSeconds = 3
-var TrekOffset = 0
+var TrekOffset = 5
 
-var bpm = 115
+var bpm = 120
 var spawn_1_beat = 0
 var spawn_2_beat = 0
 var spawn_3_beat = 1
 var spawn_4_beat = 0
+var velocityMultiplyer = 1.0
+
 
 var song_position = 0.0
 var song_position_in_beats = 0
@@ -53,7 +57,7 @@ func handle_progress():
 func handle_game_finish():
 	if player.health <= 0:
 		get_tree().change_scene_to_file("res://scenes/levels/LoseMenu.tscn")
-	if elapsed_time > 60:
+	if finish:
 		get_tree().change_scene_to_file("res://scenes/levels/WinMenu.tscn")
 
 var EnemyPreload = preload("res://scenes/characters/Enemy.tscn")
@@ -80,7 +84,7 @@ func spawn_enemy(direction):
 	print(distToCollider, " ", distToSpawn, " ", direction)
 	var totalDist = distToSpawn - distToCollider
 	
-	enemyInst.speed = totalDist / (spawnBeforeBeatSeconds * sec_per_beat)
+	enemyInst.speed = totalDist * velocityMultiplyer / (spawnBeforeBeatSeconds * sec_per_beat)
 	
 	enemyInst.position = spawns[direction]
 	enemyInst.name = "Enemy" + str(enemy_count)
@@ -136,58 +140,51 @@ func _on_audio_stream_player_beat(position: Variant) -> void:
 	print("position ", position)
 	song_position_in_beats = position + spawnBeforeBeatSeconds
 	print("new position ", song_position_in_beats)
-	if song_position_in_beats > 27:
+	if song_position_in_beats > 36:
 		spawn_1_beat = 1
 		spawn_2_beat = 1
 		spawn_3_beat = 1
 		spawn_4_beat = 1
-	if song_position_in_beats > 89:
-		spawn_1_beat = 1
-		spawn_2_beat = 0
-		spawn_3_beat = 1
-		spawn_4_beat = 0
-	if song_position_in_beats > 123:
-		spawn_1_beat = 0
-		spawn_2_beat = 1
-		spawn_3_beat = 0
-		spawn_4_beat = 1
-	if song_position_in_beats > 153:
-		spawn_1_beat = 1
-		spawn_2_beat = 1
-		spawn_3_beat = 1
-		spawn_4_beat = 1
-	if song_position_in_beats > 185:
-		spawn_1_beat = 1
-		spawn_2_beat = 1
-		spawn_3_beat = 1
-		spawn_4_beat = 1
-	if song_position_in_beats > 219:
-		spawn_1_beat = 0
-		spawn_2_beat = 1
-		spawn_3_beat = 1
-		spawn_4_beat = 1
-	if song_position_in_beats > 249:
-		spawn_1_beat = 1
-		spawn_2_beat = 1
-		spawn_3_beat = 1
-		spawn_4_beat = 1
-	if song_position_in_beats > 279:
-		spawn_1_beat = 0
-		spawn_2_beat = 2
-		spawn_3_beat = 0
-		spawn_4_beat = 2
-	if song_position_in_beats > 313:
-		spawn_1_beat = 3
-		spawn_2_beat = 2
-		spawn_3_beat = 2
-		spawn_4_beat = 1
-	if song_position_in_beats > 369:
+	if song_position_in_beats > 100:
 		spawn_1_beat = 1
 		spawn_2_beat = 0
 		spawn_3_beat = 0
 		spawn_4_beat = 0
-	if song_position_in_beats > 387:
+	if song_position_in_beats > 132:
+		spawn_1_beat = 1
+		spawn_2_beat = 1
+		spawn_3_beat = 1
+		spawn_4_beat = 1
+	if song_position_in_beats > 151:
+		#spawnBeforeBeatSeconds = 2
 		spawn_1_beat = 0
 		spawn_2_beat = 0
 		spawn_3_beat = 0
 		spawn_4_beat = 0
+	if song_position_in_beats > 157:
+		spawn_1_beat = 0
+		spawn_2_beat = 0
+		spawn_3_beat = 0
+		spawn_4_beat = 0
+	if song_position_in_beats > 164:
+		spawn_1_beat = 1
+		spawn_2_beat = 1
+		spawn_3_beat = 1
+		spawn_4_beat = 1
+	if song_position_in_beats > 194:
+		spawn_1_beat = 1
+		spawn_2_beat = 0
+		spawn_3_beat = 0
+		spawn_4_beat = 0
+	if song_position_in_beats > 197:
+		spawn_1_beat = 1
+		spawn_2_beat = 1
+		spawn_3_beat = 1
+		spawn_4_beat = 1
+	if song_position_in_beats > 257:
+		spawn_1_beat = 1
+		spawn_2_beat = 0
+		spawn_3_beat = 0
+		spawn_4_beat = 0
+	if song_position_in_beats > 264:
+		finish = true

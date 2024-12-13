@@ -5,8 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://dvcpvyai6hw0" path="res://textures/spritesheet.png" id="3_ehn4q"]
 [ext_resource type="Script" path="res://scenes/misc/Health.gd" id="4_wys1y"]
 [ext_resource type="PackedScene" uid="uid://b4srp2q1ywt7b" path="res://scenes/levels/PauseMenu.tscn" id="5_ggje8"]
-[ext_resource type="AudioStream" uid="uid://dt8k27laj5emp" path="res://songs/song.ogg" id="6_jxj3c"]
 [ext_resource type="Script" path="res://scenes/levels/BeatController.gd" id="6_ngubx"]
+[ext_resource type="AudioStream" uid="uid://dem4pk812a8ra" path="res://songs/freccero-sam-winchester-jared-padalecki-116212.mp3" id="6_vh0va"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6gy66"]
 texture = ExtResource("3_ehn4q")
@@ -561,9 +561,8 @@ value = 50.0
 show_percentage = false
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("6_jxj3c")
+stream = ExtResource("6_vh0va")
 script = ExtResource("6_ngubx")
-bpm = 115
 spawnBeforeBeatSeconds = 3
 TrekOffset = 0
 

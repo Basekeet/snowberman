@@ -8,7 +8,7 @@ var state = "idle"
 
 var striked = false
 var missed = false
-var health = 10
+var health = 5
 
 func _physics_process(delta: float) -> void:
 	if $"../".game_paused:

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://b2sybbwvgowkx"]
+[gd_scene load_steps=3 format=3 uid="uid://b2sybbwvgowkx"]
 
 [ext_resource type="Script" path="res://scenes/levels/LoseMenu.gd" id="1_ajh2a"]
+[ext_resource type="Texture2D" uid="uid://c68b1rbsltev0" path="res://textures/Без имени-3.png" id="2_fc487"]
 
 [node name="LoseMenu" type="Control"]
 layout_mode = 3
@@ -33,5 +34,10 @@ horizontal_alignment = 1
 [node name="Button" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Main menu"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -10
+position = Vector2(669, 325)
+texture = ExtResource("2_fc487")
 
 [connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]

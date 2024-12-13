@@ -56,8 +56,8 @@ func handle_game_finish():
 	if elapsed_time > 60:
 		get_tree().change_scene_to_file("res://scenes/levels/WinMenu.tscn")
 
-var EnemyPreload = load("res://scenes/characters/Enemy.tscn")
-var CirclePreload = load("res://scenes/misc/circle.tscn")
+var EnemyPreload = preload("res://scenes/characters/Enemy.tscn")
+var CirclePreload = preload("res://scenes/misc/circle.tscn")
 
 func spawn_enemy(direction):
 	var enemyInst = EnemyPreload.instantiate()
@@ -101,9 +101,11 @@ func pause():
 	if game_paused:
 		pauseMenu.hide()
 		Engine.time_scale = 1
+		$AudioStreamPlayer.stream_paused = false
 	else:
 		pauseMenu.show()
 		Engine.time_scale = 0
+		$AudioStreamPlayer.stream_paused = true
 	game_paused = !game_paused
 
 

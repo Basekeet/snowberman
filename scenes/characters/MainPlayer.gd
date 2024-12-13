@@ -12,6 +12,8 @@ var missed = false
 var health = 10
 
 func _physics_process(delta: float) -> void:
+	if $"../".game_paused:
+		return
 	handle_hit()
 	if state == "idle":
 		handle_facing()
@@ -19,7 +21,8 @@ func _physics_process(delta: float) -> void:
 	# get new state
 	var prev_state = state
 	handle_input()
-
+	if missed:
+		goto_idle()
 
 	# play new anim
 	var new_anim = state + "_" + facing
@@ -65,6 +68,8 @@ func handle_facing():
 func goto_idle():
 	state = "idle"
 
+var missDetectLoad = preload("res://scenes/misc/MissDetect.tscn")
+
 func attack():
 	var collision : Area2D
 	if missed:
@@ -88,6 +93,13 @@ func attack():
 	if not striked:
 		$Timer.start()
 		missed = true
+		var missDetect = missDetectLoad.instantiate()
+		add_child(missDetect)
+		missDetect.find_child("Anims").play("Miss")
+	else:
+		var missDetect = missDetectLoad.instantiate()
+		add_child(missDetect)
+		missDetect.find_child("Anims").play("Good")
 	
 	striked = false
 

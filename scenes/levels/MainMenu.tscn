@@ -1,10 +1,23 @@
-[gd_scene load_steps=3 format=3 uid="uid://cgxhl1n1rk37u"]
+[gd_scene load_steps=5 format=3 uid="uid://cgxhl1n1rk37u"]
 
 [ext_resource type="Script" path="res://scenes/levels/MainMenu.gd" id="1_5gwmr"]
+[ext_resource type="Texture2D" uid="uid://drdk8pehsdgj0" path="res://textures/Без имени-1.png" id="2_rnexq"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_6r8hq"]
 font_size = 50
 font_color = Color(1, 0.357326, 0.290208, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_47c2v"]
+bg_color = Color(0.158472, 0.158472, 0.158472, 0.654902)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.156863, 0.156863, 0.156863, 0.654902)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [node name="Mainmenu" type="Control"]
 layout_mode = 3
@@ -33,11 +46,13 @@ grow_vertical = 2
 layout_mode = 2
 text = "Snowberman"
 label_settings = SubResource("LabelSettings_6r8hq")
+horizontal_alignment = 1
 
 [node name="Tutorial" type="Label" parent="VBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_47c2v")
 text = "Нажимай кнопки wasd либо стрелочки чтобы совершить удар
 Совершать удары можно только в бит
 Если совершить удар не в бит, то какое-то время бить будет нельзя
@@ -55,6 +70,11 @@ text = "Start"
 [node name="QuitButton" type="Button" parent="VBoxContainer2/VBoxContainer"]
 layout_mode = 2
 text = "Quit"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -10
+position = Vector2(513, 350)
+texture = ExtResource("2_rnexq")
 
 [connection signal="pressed" from="VBoxContainer2/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="VBoxContainer2/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

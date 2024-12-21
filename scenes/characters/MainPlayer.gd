@@ -84,6 +84,8 @@ func attack():
 	collision.find_child("Anims").play("explode")
 	var minEnemy : CharacterBody2D
 	var minDist = 10000000
+	var is_find = false
+	striked = false
 	for overlapped_body in collision.get_overlapping_bodies():
 		if overlapped_body.name.begins_with("Enemy") \
 			and not overlapped_body.is_dead \
@@ -92,7 +94,8 @@ func attack():
 				if minDist > dist:
 					minDist = dist
 					minEnemy = overlapped_body
-	if minEnemy:
+					is_find = true
+	if is_find: 
 		var enemy_animation_manager = minEnemy.find_children("Anims")[0]
 		enemy_animation_manager.play("die")
 		striked = true

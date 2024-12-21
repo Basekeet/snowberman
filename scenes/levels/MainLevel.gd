@@ -34,6 +34,9 @@ func set_default():
 	enemy_count = 0
 	Engine.time_scale = 1
 	pauseMenu.hide()
+	Variables.excellentScore = 0
+	Variables.goodScore = 0
+	Variables.missScore = 0
 
 func _ready() -> void:
 	set_default()

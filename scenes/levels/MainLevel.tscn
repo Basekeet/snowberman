@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bl6yliy1tfbgv"]
+[gd_scene load_steps=13 format=3 uid="uid://bl6yliy1tfbgv"]
 
 [ext_resource type="Script" path="res://scenes/levels/MainLevel.gd" id="1_a0xb6"]
 [ext_resource type="PackedScene" uid="uid://bk1kvsupe4ydw" path="res://scenes/characters/MainPlayer.tscn" id="2_3qtl0"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://b4srp2q1ywt7b" path="res://scenes/levels/PauseMenu.tscn" id="5_ggje8"]
 [ext_resource type="Script" path="res://scenes/levels/BeatController.gd" id="6_ngubx"]
 [ext_resource type="AudioStream" uid="uid://dem4pk812a8ra" path="res://songs/freccero-sam-winchester-jared-padalecki-116212.mp3" id="6_vh0va"]
+[ext_resource type="Texture2D" uid="uid://b2qomq1vp4g5o" path="res://textures/Без имени-4.png" id="8_t72lu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6gy66"]
 texture = ExtResource("3_ehn4q")
@@ -499,11 +500,18 @@ texture = ExtResource("3_ehn4q")
 [sub_resource type="TileSet" id="TileSet_0eimb"]
 sources/0 = SubResource("TileSetAtlasSource_6gy66")
 
+[sub_resource type="LabelSettings" id="LabelSettings_ll48n"]
+font_color = Color(1, 0, 0, 1)
+
 [sub_resource type="LabelSettings" id="LabelSettings_w2e16"]
 outline_color = Color(1, 0, 0, 1)
 
 [node name="MainLevel" type="Node2D"]
 script = ExtResource("1_a0xb6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -4095
+texture = ExtResource("8_t72lu")
 
 [node name="Player" parent="." node_paths=PackedStringArray("tilemap") instance=ExtResource("2_3qtl0")]
 tilemap = NodePath("../TileMap")
@@ -528,11 +536,22 @@ tooltip_text = "5"
 script = ExtResource("4_wys1y")
 player = NodePath("../Player")
 
+[node name="Label" type="Label" parent="UI"]
+layout_mode = 0
+offset_left = -50.0
+offset_top = 497.0
+offset_right = 6.0
+offset_bottom = 520.0
+text = "Health:"
+label_settings = SubResource("LabelSettings_ll48n")
+
 [node name="HealthText" type="Label" parent="UI"]
 self_modulate = Color(1, 0, 0, 1)
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 9.0
+offset_top = 498.0
+offset_right = 47.0
+offset_bottom = 521.0
 text = "5"
 label_settings = SubResource("LabelSettings_w2e16")
 
@@ -553,10 +572,10 @@ grow_vertical = 1
 modulate = Color(0, 1, 1, 1)
 self_modulate = Color(0, 0.860988, 0.860988, 1)
 layout_mode = 0
-offset_left = -55.0
-offset_top = -61.0
-offset_right = 139.0
-offset_bottom = -45.0
+offset_left = -49.0
+offset_top = 537.0
+offset_right = 145.0
+offset_bottom = 553.0
 value = 50.0
 show_percentage = false
 
